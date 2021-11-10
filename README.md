@@ -6,7 +6,7 @@ The Dataset includes AERONET Aerosol Optical Depth - Version 3 - level1.5 or lev
 
 ## Input file
 
-The input file is contained in folder [01-input_dir](https://github.com/fabioslopes/download_aeronet_data/tree/master/01-input_dir) folder. It is a csv file with all necessary information for download products from AERONET database.
+The input file is contained in folder [01-input_dir](https://github.com/fabioslopes/download_aeronet_data/tree/master/01-input_dir). It is a csv file with all necessary information for download products from AERONET database.
 The input file contain 11 columns with the following fields: 
 1. year_initial: Initial year for data retrieval
 2. month_initial: Initial month for data retrieval
