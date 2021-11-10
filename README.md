@@ -35,4 +35,6 @@ The input file contain 11 columns with the following fields:
    - directsun - Aerosol Optical Depth from AERONET direct sun measurements
 11. download - use "on" to turn it on download or "off" to turn it off the download
 
+Once you have adjusted the input.csv file, set up the output directory name on dad.py file (01-rawdata is the default) and run it to start the AERONET data download. 
+
 More information about data, products and how to download, please, check the [AERONET Web Data Service Help](https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_v3)
