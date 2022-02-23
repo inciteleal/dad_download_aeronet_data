@@ -45,7 +45,7 @@ for x in range(0, len(filenames)):
         if platform.system() == 'Linux':
             filedata = pd.read_csv(newfile)
         else:
-            filedata = pd.read_csv(newfile, sep=';' )
+            filedata = pd.read_csv(newfile, sep=',' )
                 
         for i in range(0,len(filedata)):
             if filedata['download'][i] == 'on':
