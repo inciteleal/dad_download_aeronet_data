@@ -14,9 +14,13 @@ https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_v3
 """
 
 import os
+import ssl
 import wget
 import platform
 import pandas as pd
+
+if (not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None)):
+        ssl._create_default_https_context = ssl._create_unverified_context
 
 '''Creating the folder for raw data download from AERONET web data service'''
 rootdir = os.getcwd()
