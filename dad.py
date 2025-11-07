@@ -11,6 +11,9 @@ Dataset includes AERONET Aerosol Optical Depth - Version 3 - level1.5 or level2.
 More information: Check AERONET Version 3 Web Service Help
 https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_v3
 
+Last update: November 6, 2025 by hbarbosa
+  - prints info to the user
+
 """
 
 import os
@@ -39,11 +42,8 @@ print('Number of input files to read:', len(filenames))
 print('List of input files found:')
 print(filenames)
 
-print(filenames)
-filenameout = []
-
-for x in range(0, len(filenames)):
-        newfile = os.sep.join([inputdir, filenames[x]])
+for afile in filenames:
+        newfile = os.sep.join([inputdir, afile])
         print('Reading input file:', newfile)
 
         if platform.system() == 'Linux':
