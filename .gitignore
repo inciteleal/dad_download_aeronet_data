@@ -3,3 +3,6 @@
 
 #example of input file to be used to download aeronet data
 input.csv
+
+#backup files from emacs
+*~
