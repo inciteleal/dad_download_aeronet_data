@@ -16,6 +16,7 @@ Last update: November 6, 2025 by hbarbosa
   - removed index for loop on filenames
   - formated comments in the code
   - BUG FIX: removed HTML format when downloading directsun product
+  - simpler formating of strings used in filenames
 
 """
 
@@ -54,59 +55,49 @@ for afile in filenames:
         else:
             filedata = pd.read_csv(newfile, sep=',' )
         print('Number of products requested:', len(filedata))
-                
+        
+        # loop over each line of the input file
         for i in range(0,len(filedata)):
+            
+            # download only if the download flag is 'on'
             if filedata['download'][i] == 'on':
                 print('Processing product: ' + filedata['products'][i])
-                                            
-                if filedata['month_initial'][i] < 10: 
-                        filemonthin = '0'+ str(filedata['month_initial'][i])
-                else:
-                        filemonthin = str(filedata['month_initial'][i])
-                if filedata['month_final'][i] < 10:
-                        filemonthfinal = '0'+ str(filedata['month_final'][i])
-                else:
-                        filemonthfinal = str(filedata['month_final'][i])
-                if filedata['day_initial'][i] < 10: 
-                        filedayin = '0'+ str(filedata['day_initial'][i])
-                else:
-                        filedayin = str(filedata['day_initial'][i])
-                if filedata['day_final'][i] < 10:
-                        filedayfinal = '0'+ str(filedata['day_final'][i])
-                else:
-                        filedayfinal = str(filedata['day_final'][i])
-                if filedata['level'][i] == 10:
-                        filelevel = '10'
-                elif filedata['level'][i] == 15:
-                        filelevel = '15'
-                else:
-                        filelevel = '20'  
-                filenameout = str(filedata['year_initial'][i])+filemonthin+filedayin+'_'+\
-                              str(filedata['year_final'][i])+filemonthfinal+filedayfinal+'_'+\
+
+                # use f-strings with formatting
+                fileyearin = f'{filedata["year_initial"][i]:04d}'
+                fileyearfinal = f'{filedata["year_final"][i]:04d}'
+                filemonthin = f'{filedata["month_initial"][i]:02d}'
+                filemonthfinal = f'{filedata["month_final"][i]:02d}'
+                filedayin = f'{filedata["day_initial"][i]:02d}'
+                filedayfinal = f'{filedata["day_final"][i]:02d}'
+                filelevel = str(filedata["level"][i])
+
+                filenameout = fileyearin+filemonthin+filedayin+'_'+\
+                              fileyearfinal+filemonthfinal+filedayfinal+'_'+\
                               filedata['site'][i]+'_level'+filelevel+'.'+filedata['products'][i]
                 
                 url = 'https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_inv_v3?site='+filedata['site'][i]+\
-                      '&year='+str(filedata['year_initial'][i])+'&month='+filemonthin+'&day='+filedayin+\
-                      '&year2='+str(filedata['year_final'][i])+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
+                      '&year='+fileyearin+'&month='+filemonthin+'&day='+filedayin+\
+                      '&year2='+fileyearfinal+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
                       '&product='+filedata['products'][i].upper()+'&AVG='+str(filedata['avg'][i])+'&ALM'+filelevel+'=1&if_no_html=1'
                 
                 if filedata['products'][i] == 'pfncoarse':
                         url = 'https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_inv_v3?site='+filedata['site'][i]+\
-                              '&year='+str(filedata['year_initial'][i])+'&month='+filemonthin+'&day='+filedayin+\
-                              '&year2='+str(filedata['year_final'][i])+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
+                              '&year='+fileyearin+'&month='+filemonthin+'&day='+filedayin+\
+                              '&year2='+fileyearfinal+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
                               '&product=PFN&AVG='+str(filedata['avg'][i])+'&ALM'+filelevel+'=1&if_no_html=1&pfn_type=1'
 
                 if filedata['products'][i] == 'pfnfine':                                
                         url = 'https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_inv_v3?site='+filedata['site'][i]+\
-                              '&year='+str(filedata['year_initial'][i])+'&month='+filemonthin+'&day='+filedayin+\
-                              '&year2='+str(filedata['year_final'][i])+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
+                              '&year='+fileyearin+'&month='+filemonthin+'&day='+filedayin+\
+                              '&year2='+fileyearfinal+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
                               '&product=PFN&AVG='+str(filedata['avg'][i])+'&ALM'+filelevel+'=1&if_no_html=1&pfn_type=2'
 
                 #bug 6-nov-2025 missing if_no_html=1 in the directsun url
                 if filedata['products'][i] == 'directsun':
                         url = 'https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_v3?site='+filedata['site'][i]+\
-                                '&year='+str(filedata['year_initial'][i])+'&month='+filemonthin+'&day='+filedayin+\
-                                '&year2='+str(filedata['year_final'][i])+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
+                                '&year='+fileyearin+'&month='+filemonthin+'&day='+filedayin+\
+                                '&year2='+fileyearfinal+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
                                 '&AOD'+filelevel+'=1&AVG='+str(filedata['avg'][i])+'&ALM'+filelevel+'=1&if_no_html=1'
 
                 if os.path.exists(fullpathfilenameout):
