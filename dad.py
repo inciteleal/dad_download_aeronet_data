@@ -13,6 +13,9 @@ https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_v3
 
 Last update: November 6, 2025 by hbarbosa
   - prints info to the user
+  - removed index for loop on filenames
+  - formated comments in the code
+  - BUG FIX: removed HTML format when downloading directsun product
 
 """
 
@@ -25,14 +28,14 @@ import pandas as pd
 if (not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None)):
         ssl._create_default_https_context = ssl._create_unverified_context
 
-'''Creating the folder for raw data download from AERONET web data service'''
+# Creating the folder for raw data download from AERONET web data service 
 rootdir = os.getcwd()
 outputdir = '01-rawdata'
 dircontents = os.sep.join([rootdir, outputdir])
 if not os.path.exists(dircontents):
         os.makedirs(dircontents)
 
-'''Reading the input data to download AERONET data from web data service'''
+# Reading the input data to download AERONET data from web data service
 print('Locating input files...')
 inputdatadir = '01-input_dir'
 inputfilename = 'input1'
@@ -99,11 +102,12 @@ for afile in filenames:
                               '&year2='+str(filedata['year_final'][i])+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
                               '&product=PFN&AVG='+str(filedata['avg'][i])+'&ALM'+filelevel+'=1&if_no_html=1&pfn_type=2'
 
+                #bug 6-nov-2025 missing if_no_html=1 in the directsun url
                 if filedata['products'][i] == 'directsun':
                         url = 'https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_v3?site='+filedata['site'][i]+\
                                 '&year='+str(filedata['year_initial'][i])+'&month='+filemonthin+'&day='+filedayin+\
                                 '&year2='+str(filedata['year_final'][i])+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
-                                '&AOD'+filelevel+'=1&AVG='+str(filedata['avg'][i])
+                                '&AOD'+filelevel+'=1&AVG='+str(filedata['avg'][i])+'&ALM'+filelevel+'=1&if_no_html=1'
 
                 if os.path.exists(fullpathfilenameout):
                     print('    => File already exists. Skipping...')
