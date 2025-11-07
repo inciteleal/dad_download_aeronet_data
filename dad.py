@@ -18,7 +18,8 @@ Last update: November 6, 2025 by hbarbosa
   - BUG FIX: removed HTML format when downloading directsun product
   - simpler formating of strings used in filenames
   - BUG FIX: force using ',' as separator in linux as well
-
+  - Feature: data now saved to 01-rawdata/site_name/
+  - BUG FIX: Disable default progress bar, since aeronet website does not give file length
 """
 
 import os
@@ -99,12 +100,20 @@ for afile in filenames:
                                 '&year2='+fileyearfinal+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
                                 '&AOD'+filelevel+'=1&AVG='+str(filedata['avg'][i])+'&ALM'+filelevel+'=1&if_no_html=1'
 
-                if os.path.exists(os.sep.join([dircontents, filenameout])):
+                # create a sub-folder for this aeronet site
+                sitedir = f'{filedata['site'][i]}'
+                dircontents = os.sep.join([rootdir, outputdir, sitedir])
+                if not os.path.exists(dircontents):
+                       os.makedirs(dircontents)
+                fullpathfilenameout = os.sep.join([dircontents, filenameout])
+
+                if os.path.exists(fullpathfilenameout):
                     print('    => File already exists. Skipping...')
                     continue
                 else:
                     print('    => Downloading:', filenameout)
-                                        
-                filename = wget.download(url, out=os.sep.join([dircontents, filenameout]))
+
+                # Disable default progress bar, since aeronet website does not give file length
+                filename = wget.download(url, out=fullpathfilenameout, bar=None)
 
 # -- end of script --
