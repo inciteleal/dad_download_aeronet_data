@@ -4,6 +4,44 @@ This repository provides a python script to automatically download data from AER
 
 The Dataset includes AERONET Aerosol Optical Depth - Version 3 - level1.5 or level2.0 data (direct sun algorithm) and AERONET inversion data.
 
+## Requirements
+
+To use the scripts, you need pandas and python-wget libraries. You can install these libraries the usual way:
+
+```
+pip install pandas wget 
+```
+
+In the case of Anaconda, you need to install the python-wget package from conda-forge, because the wget package will actually give you an executable on the command line, not the python module. Hence: 
+
+```
+conda install -c conda-forge python-wget
+conda install pandas
+```
+
+## Downloading AERONET data
+
+After downloading this package and installing the required libraries, you need to run the dad.py script to download AERONET data. 
+You can do that on the command line:
+
+```
+python3 dad.py
+```
+
+Or in an interactive sesion, for instance using ipython:
+
+```
+In [1]: run dad.py
+```
+
+The script will read all the input files in the 00-input_dir/ folder, and download all the AERONET products listed in each file.
+The files, exactly as downloaded from the AERONET website, are saved in the 00-rawdata/ folder. 
+
+You can set up one file for each station that you are interested, and run the script only once. See the next section to
+understand how to modify the input file for your needs. The example distributed in this repository is
+for the station in Sao Paulo, Brazil. 
+
+
 ## Input file
 
 The input file is contained in folder [01-input_dir](https://github.com/fabioslopes/download_aeronet_data/tree/master/01-input_dir). It is a csv file with all necessary information for download products from AERONET database.
@@ -14,17 +52,17 @@ The input file contain 11 columns with the following fields:
 4. year_final: End year for data retrieval
 5. month_final: End month for data retrieval
 6. day_final: end day for data retrieval
-7. site: The station name to be downloaded, ex: Sao_Paulo is the name of AERONET sattion setup in São Paulo city in Brazil. The AERONET database site list can be checked in the file [aeronet_locations_v3](https://github.com/fabioslopes/download_aeronet_data/blob/master/aeronet_locations_v3.csv)
+7. site: The station name to be downloaded, ex: Sao_Paulo is the name of AERONET station setup in São Paulo city in Brazil. The AERONET database site list can be checked in the file [aeronet_locations_v3](https://github.com/fabioslopes/download_aeronet_data/blob/master/aeronet_locations_v3.csv)
 8. level - is the level of AERONET data, ex: 20 for level2.0 data or 15 for level1.5 data
 9. avg - is the data format average - fo all points use AVG=10 and for daily average use AVG=20
 10. products: is the data products to be downloaded 
    - siz - Size distribution
-   - rin	- Refractive indicies (real and imaginary)
+   - rin - Refractive indicies (real and imaginary)
    - cad -	Coincident AOT data with almucantar retrieval
-   - vol	- Volume concentration, volume mean radius, effective radius and standard deviation
+   - vol - Volume concentration, volume mean radius, effective radius and standard deviation
    - tab -	AOD absorption
    - aod - AOD extinction
-   - ssa	- Single scattering albedo
+   - ssa - Single scattering albedo
    - asy -	Asymmetry factor
    - frc -	Radiative Forcing
    - lid - Lidar and Depolarization Ratios

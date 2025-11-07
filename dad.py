@@ -25,7 +25,6 @@ Last update: November 6, 2025 by hbarbosa
 import os
 import ssl
 import wget
-import platform
 import pandas as pd
 
 if (not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None)):
@@ -33,14 +32,14 @@ if (not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unveri
 
 # Creating the folder for raw data download from AERONET web data service 
 rootdir = os.getcwd()
-outputdir = '01-rawdata'
+outputdir = '00-rawdata'
 dircontents = os.sep.join([rootdir, outputdir])
 if not os.path.exists(dircontents):
         os.makedirs(dircontents)
 
 # Reading the input data to download AERONET data from web data service
 print('Locating input files...')
-inputdatadir = '01-input_dir'
+inputdatadir = '00-input_dir'
 inputfilename = 'input1'
 inputdir = os.sep.join([rootdir, inputdatadir])
 filenames = [name for name in os.listdir(inputdir) if name.startswith(inputfilename)]

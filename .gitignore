@@ -1,8 +1,5 @@
 #database downloaded from AERONET site
-01-rawdata
-
-#example of input file to be used to download aeronet data
-input.csv
+00-rawdata
 
 #backup files from emacs
 *~
