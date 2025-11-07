@@ -30,25 +30,31 @@ if not os.path.exists(dircontents):
         os.makedirs(dircontents)
 
 '''Reading the input data to download AERONET data from web data service'''
+print('Locating input files...')
 inputdatadir = '01-input_dir'
 inputfilename = 'input1'
 inputdir = os.sep.join([rootdir, inputdatadir])
 filenames = [name for name in os.listdir(inputdir) if name.startswith(inputfilename)]
-nfiles=len(filenames)
+print('Number of input files to read:', len(filenames))
+print('List of input files found:')
+print(filenames)
 
 print(filenames)
 filenameout = []
 
 for x in range(0, len(filenames)):
         newfile = os.sep.join([inputdir, filenames[x]])
+        print('Reading input file:', newfile)
 
         if platform.system() == 'Linux':
             filedata = pd.read_csv(newfile)
         else:
             filedata = pd.read_csv(newfile, sep=',' )
+        print('Number of products requested:', len(filedata))
                 
         for i in range(0,len(filedata)):
             if filedata['download'][i] == 'on':
+                print('Processing product: ' + filedata['products'][i])
                                             
                 if filedata['month_initial'][i] < 10: 
                         filemonthin = '0'+ str(filedata['month_initial'][i])
@@ -98,5 +104,13 @@ for x in range(0, len(filenames)):
                                 '&year='+str(filedata['year_initial'][i])+'&month='+filemonthin+'&day='+filedayin+\
                                 '&year2='+str(filedata['year_final'][i])+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
                                 '&AOD'+filelevel+'=1&AVG='+str(filedata['avg'][i])
+
+                if os.path.exists(fullpathfilenameout):
+                    print('    => File already exists. Skipping...')
+                    continue
+                else:
+                    print('    => Downloading:', filenameout)
                                         
                 filename = wget.download(url, out=os.sep.join([dircontents, filenameout]))
+
+# -- end of script --
