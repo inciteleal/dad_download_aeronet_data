@@ -6,7 +6,7 @@ The Dataset includes AERONET Aerosol Optical Depth - Version 3 - level1.5 or lev
 
 ## Requirements
 
-To use the scripts, you need pandas and python-wget libraries. You can install these libraries the usual way:
+To use this script, you need pandas and python-wget libraries. You can install these libraries the usual way:
 
 ```
 pip install pandas wget 
@@ -21,8 +21,9 @@ conda install pandas
 
 ## Downloading AERONET data
 
-After downloading this package and installing the required libraries, you need to run the dad.py script to download AERONET data. 
-You can do that on the command line:
+After downloading this package and installing the required libraries,
+you need to run the dad.py script to download AERONET data.  You can
+do that on the command line:
 
 ```
 python3 dad.py
@@ -34,25 +35,33 @@ Or in an interactive sesion, for instance using ipython:
 In [1]: run dad.py
 ```
 
-The script will read all the input files in the 00-input_dir/ folder, and download all the AERONET products listed in each file.
-The files, exactly as downloaded from the AERONET website, are saved in the 00-rawdata/ folder. 
+The script will read all the input files in the 00-input_dir/ folder,
+and download all the AERONET products listed in each file.  The files,
+exactly as downloaded from the AERONET website, are saved in the
+00-rawdata/ folder.
 
-You can set up one file for each station that you are interested, and run the script only once. See the next section to
-understand how to modify the input file for your needs. The example distributed in this repository is
-for the station in Sao Paulo, Brazil. 
+You can set up one input file for each station that you are
+interested, and run the script only once. See the next section to
+understand how to modify the input file for your needs. The example
+distributed in this repository is for the station in Sao Paulo,
+Brazil.
 
 
 ## Input file
 
-The input file is contained in folder [01-input_dir](https://github.com/fabioslopes/download_aeronet_data/tree/master/01-input_dir). It is a csv file with all necessary information for download products from AERONET database.
-The input file contain 11 columns with the following fields: 
+The input file is contained in folder
+[00-input_dir](https://github.com/inciteleal/dad_download_aeronet_data/tree/master/00-input_dir)
+. It is a csv file with all necessary information for downloading
+products from AERONET database.  The input file contain 11 columns
+with the following fields:
+
 1. year_initial: Initial year for data retrieval
 2. month_initial: Initial month for data retrieval
 3. day_initial: Initial day for data retrieval
 4. year_final: End year for data retrieval
 5. month_final: End month for data retrieval
 6. day_final: end day for data retrieval
-7. site: The station name to be downloaded, ex: Sao_Paulo is the name of AERONET station setup in São Paulo city in Brazil. The AERONET database site list can be checked in the file [aeronet_locations_v3](https://github.com/fabioslopes/download_aeronet_data/blob/master/aeronet_locations_v3.csv)
+7. site: The station name to be downloaded (see next section)
 8. level - is the level of AERONET data, ex: 20 for level2.0 data or 15 for level1.5 data
 9. avg - is the data format average - fo all points use AVG=10 and for daily average use AVG=20
 10. products: is the data products to be downloaded 
@@ -73,6 +82,29 @@ The input file contain 11 columns with the following fields:
    - directsun - Aerosol Optical Depth from AERONET direct sun measurements
 11. download - use "on" to turn it on download or "off" to turn it off the download
 
-Once you have adjusted the input.csv file, set up the output directory name on dad.py file (01-rawdata is the default) and run it to start the AERONET data download. 
+Once you have adjusted the input.csv file, set up the output directory
+name on dad.py file (01-rawdata is the default) and run it to start
+the AERONET data download.
 
-More information about data, products and how to download, please, check the [AERONET Web Data Service Help](https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_v3)
+More information about data, products and how to download, please,
+check the [AERONET Web Data Service
+Help](https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_v3)
+
+## AERONET site names
+
+The sample input file was prepared for downloading data from the
+AERONET station in Sao Paulo, Brazil. You can find this file here: 
+[input1_sao_paulo.csv](https://github.com/inciteleal/dad_download_aeronet_data/blob/master/00-input_dir/input1_sao_paulo.csv),
+
+Important points:
+
+1. The AERONET Web Data Service is ``case sensitive'', which means you
+need to use "Sao_Paulo" and not "sao_paulo" or "SAO_PAULO". 
+
+2. If you try to download data from a station that does not exist, the
+AERONET Web Data Service ``will return data for all stations''.  The
+download would never finish, because it is too much data.
+
+You should always double-check the site name, which you can find on the AERONET website. We provide a list here, but please understand that this might not be up-do-date: 
+[aeronet_locations_v3](https://github.com/inciteleal/dad_download_aeronet_data/blob/master/aeronet_locations_v3.csv)
+
