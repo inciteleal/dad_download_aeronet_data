@@ -17,6 +17,7 @@ Last update: November 6, 2025 by hbarbosa
   - formated comments in the code
   - BUG FIX: removed HTML format when downloading directsun product
   - simpler formating of strings used in filenames
+  - BUG FIX: force using ',' as separator in linux as well
 
 """
 
@@ -50,10 +51,8 @@ for afile in filenames:
         newfile = os.sep.join([inputdir, afile])
         print('Reading input file:', newfile)
 
-        if platform.system() == 'Linux':
-            filedata = pd.read_csv(newfile)
-        else:
-            filedata = pd.read_csv(newfile, sep=',' )
+        # bug 6-nov-2025 force using ',' as separator in all operating systems
+        filedata = pd.read_csv(newfile, sep=',' )
         print('Number of products requested:', len(filedata))
         
         # loop over each line of the input file
