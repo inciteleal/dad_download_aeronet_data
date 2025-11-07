@@ -99,7 +99,7 @@ for afile in filenames:
                                 '&year2='+fileyearfinal+'&month2='+filemonthfinal+'&day2='+filedayfinal+\
                                 '&AOD'+filelevel+'=1&AVG='+str(filedata['avg'][i])+'&ALM'+filelevel+'=1&if_no_html=1'
 
-                if os.path.exists(fullpathfilenameout):
+                if os.path.exists(os.sep.join([dircontents, filenameout])):
                     print('    => File already exists. Skipping...')
                     continue
                 else:
