@@ -98,12 +98,12 @@ AERONET station in Sao Paulo, Brazil. You can find this file here:
 
 Important points:
 
-1. The AERONET Web Data Service is ``case sensitive'', which means you
+1. The AERONET Web Data Service is **case sensitive**, which means you
 need to use "Sao_Paulo" and not "sao_paulo" or "SAO_PAULO". 
 
-2. If you try to download data from a station that does not exist, the
-AERONET Web Data Service ``will return data for all stations''.  The
-download would never finish, because it is too much data.
+2. If you try to download data from a station that does not exist (e.g., wrong name), the
+AERONET Web Data Service <ins>will return data for all stations</ins>.  The
+download would never finish (too much data)!!!
 
 You should always double-check the site name, which you can find on the AERONET website. We provide a list here, but please understand that this might not be up-do-date: 
 [aeronet_locations_v3](https://github.com/inciteleal/dad_download_aeronet_data/blob/master/aeronet_locations_v3.csv)
