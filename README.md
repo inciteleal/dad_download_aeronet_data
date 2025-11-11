@@ -82,13 +82,6 @@ with the following fields:
    - directsun - Aerosol Optical Depth from AERONET direct sun measurements
 11. download - use "on" to turn it on download or "off" to turn it off the download
 
-Once you have adjusted the input.csv file, set up the output directory
-name on dad.py file (01-rawdata is the default) and run it to start
-the AERONET data download.
-
-More information about data, products and how to download, please,
-check the [AERONET Web Data Service
-Help](https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_v3)
 
 ## AERONET site names
 
@@ -108,3 +101,8 @@ download would never finish (too much data)!!!
 You should always double-check the site name, which you can find on the AERONET website. We provide a list here, but please understand that this might not be up-do-date: 
 [aeronet_locations_v3](https://github.com/inciteleal/dad_download_aeronet_data/blob/master/aeronet_locations_v3.csv)
 
+## More information
+
+More information about data, products and how to download, please,
+check the [AERONET Web Data Service
+Help](https://aeronet.gsfc.nasa.gov/cgi-bin/print_web_data_v3)
