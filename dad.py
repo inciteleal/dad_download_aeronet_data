@@ -100,7 +100,7 @@ for afile in filenames:
                                 '&AOD'+filelevel+'=1&AVG='+str(filedata['avg'][i])+'&ALM'+filelevel+'=1&if_no_html=1'
 
                 # create a sub-folder for this aeronet site
-                sitedir = f'{filedata['site'][i]}'
+                sitedir = f'{filedata["site"][i]}'
                 dircontents = os.sep.join([rootdir, outputdir, sitedir])
                 if not os.path.exists(dircontents):
                        os.makedirs(dircontents)
